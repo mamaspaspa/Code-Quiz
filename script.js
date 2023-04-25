@@ -10,8 +10,36 @@
 //WHEN the game is over//
 //THEN I can save my initials and score//
 
+//i also need to research how to add the correct/incorrect sfx//
+
 
 //define questions
-
+const questions = [
+    {
+        question: "Commonly used data types DO NOT include:",
+        choices: ["a. strings", "b. booleans", "c. alerts", "d. numbers"],
+        answer: "c. alerts"
+    },
+    {
+        question: "Arrays in JavaScript can be used to store ____.",
+        choices: ["a. numbers and strings", "b. other arrays", "c. booleans", "d. all of the above"],
+        answer: "b. other arrays"
+    },
+    {
+        question: "String values must be enclosed within _____ when being assigned to variables.",
+        choices: ["a. commas", "b. curly brackets", "c. quotes", "d. parenthesis"],
+        answer: "c. quotes"
+    },
+    {
+        question: "The condition in an if / else statement is enclosed with _____",
+        choices: ["a. quotes", "b. curly brackets", "c. parenthesis", "d. white bread"],
+        answer: "c. parenthesis"
+    },
+    {
+        question: "The first index of an array is ____.",
+        choices: ["a. 0", "b. 1", "c. 8", "d. any"],
+        answer: "a. 0"
+    },
+];
 //timer when start button is clicked
 
