@@ -12,6 +12,27 @@
 
 //i also need to research how to add the correct/incorrect sfx//
 
+//get reference to element
+
+var timer = document.getElementById("timer");
+var timeLeft = document.getElementById("timeLeft");
+
+var startQuizBtn = document.getElementById("start");
+
+var questionDiv = document.getElementById("questions");
+var questionTitle = document.getElementById("question-title");
+var choices = document.getElementById("choices");
+var answerCheck = document.getElementById("answerCheck");
+
+var summary = document.getElementById("end-screen");
+var submitInitialBtn = document.getElementById("submitInitialBtn");
+var initialInput = document.getElementById("initialInput");
+var everything = document.getElementById("everything");
+
+var highScoreSection = document.getElementById("end-screen");
+var finalScore = document.getElementById("final-score");
+
+
 
 //define questions
 const questions = [
@@ -43,3 +64,53 @@ const questions = [
 ];
 //timer when start button is clicked
 
+var totalTime = 60;
+function newQuiz() {
+    questionIndex = 0;
+    totalTime = 60;
+    timeLeft.textContent = totalTime;
+    initialInput.textContent = "";
+
+    startQuizBtn.style.display = "none";
+    questionDiv.style.display = "block";
+    timer.style.display = "block";
+
+    var startTimer = setInterval(function() {
+        totalTime--;
+        timeLeft.textContent = totalTime;
+    })
+
+    showQuiz();
+};
+
+function showQuiz() {
+    nextQuestion();
+}
+
+
+function nextQuestion() {
+    questionTitle.textContent = questions[questionIndex].question;
+}
+
+//event listenrs
+startQuizBtn.addEventListener("click", newQuiz);
+choices.addEventListener("click");
+
+
+submitInitialBtn.addEventListener("click", function(event){ 
+    storeHighScores(event);
+});
+
+viewHighScore.addEventListener("click", function(event) { 
+    showHighScores(event);
+});
+
+goBackBtn.addEventListener("click", function() {
+    startDiv.style.display = "block";
+    highScoreSection.style.display = "none";
+});
+
+clearHighScoreBtn.addEventListener("click", function(){
+    window.localStorage.removeItem("high scores");
+    listOfHighScores.innerHTML = "High Scores Cleared!";
+});
