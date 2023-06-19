@@ -28,6 +28,7 @@ var summary = document.getElementById("end-screen");
 var submitInitialBtn = document.getElementById("submitInitialBtn");
 var initialInput = document.getElementById("initialInput");
 var everything = document.getElementById("everything");
+var feedback = document.getElementById("feedback");
 
 var highScoreSection = document.getElementById("end-screen");
 var finalScore = document.getElementById("final-score");
@@ -35,7 +36,7 @@ var finalScore = document.getElementById("final-score");
 
 
 //define questions
-const questions = [
+var questions = [
     {
         question: "Commonly used data types DO NOT include:",
         choices: ["a. strings", "b. booleans", "c. alerts", "d. numbers"],
@@ -62,31 +63,67 @@ const questions = [
         answer: "a. 0"
     },
 ];
+
+//questions to local storage
+localStorage.setItem("questions",JSON.stringify(questions));
+
 //timer when start button is clicked
 
-var totalTime = 60;
-function newQuiz() {
-    questionIndex = 0;
-    totalTime = 60;
-    timeLeft.textContent = totalTime;
-    initialInput.textContent = "";
+function countdown() {
+    var timeInterval = setInterval(function () {
+    
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+        } else {
+            //if there's time left, reduce the time
+            timeLeft--;
+        }
+        //update time displayed
+        timerEl.textContent = timeLeft;
 
-    startQuizBtn.style.display = "none";
-    questionDiv.style.display = "block";
-    timer.style.display = "block";
+        //clear timer so user doesnt have to wait
+        if (timeLeft <= 0 || isEnd) {
+            clearInterval(timeInterval);
+            showEndScreen();
+        }
 
-    var startTimer = setInterval(function() {
-        totalTime--;
-        timeLeft.textContent = totalTime;
-    })
-
-    showQuiz();
-};
-
-function showQuiz() {
-    nextQuestion();
+    }, 1000);
 }
 
+// start the quiz
+function startQuiz() {
+    //set maximum time to 75 seconds
+    timerEl.textContent = timeLeft;
+
+    //start the timer
+    countdown();
+    //initialise the quiz
+    init(questionIndex);
+}
+
+// checking to see if the answer is correct
+function checkAnswer(answer) {
+
+    //answer is correct
+    if (answer.getAttribute("is-correct") == "true") {
+        //if correct display 'Correct!'
+        feedback.textContent = "Correct!";
+    } else {
+        //incorrect
+        feedback.textContent = "Wrong!";
+        console.log("wrong");
+    }
+
+    // show the next question
+    if (questionIndex < (questions.length - 1)) {
+        questionIndex++;
+        nextQuestion(questionIndex);
+    } else {
+        //if no more questions, display end screen
+        isEnd = true;
+    }
+
+};
 
 function nextQuestion() {
     questionTitle.textContent = questions[questionIndex].question;
