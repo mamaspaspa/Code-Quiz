@@ -8,7 +8,7 @@ This repo is for my sixth weekly challenge. I made this using Javascript. In thi
 
 The following image shows the web application's appearance and functionality:
 
-![Coding quiz demo](demo.png)
+![Coding quiz demo](./demo.PNG)
 
 And here is a link to the web application: https://mamaspaspa.github.io/Code-Quiz/
 
